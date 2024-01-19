@@ -1,12 +1,10 @@
 "use client"
-import blocks from "./assets/blocks.json"
-//import Image from "next/image"
 import { useRouter } from "next/navigation"
 export default function Home() {
   const router = useRouter()
   const playButton = () => {
     router.push("/play")
-    console.log("hi", blocks)
+
   }
   return (
     <div style={{ backgroundImage: `url("/woodbg.png")` }} className="w-screen h-screen bg-cover flex justify-center items-center">
