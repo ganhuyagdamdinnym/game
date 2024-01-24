@@ -2,10 +2,11 @@
 import blocks from "../assets/blocks.json";
 import { Block } from "../components/Block";
 import { RandomBlock } from "../components/Random-block";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
 export default function Play() {
+  const currentBlockRef = useRef();
   const params = useSearchParams();
   const id = params.get("id");
   // console.log(id);
@@ -28,6 +29,8 @@ export default function Play() {
     alert("aa");
   };
   const handleDrop = async (y, x) => {
+    console.log("hi", currentBlockRef);
+    // alert(currentBlockRef);
     alert("dragOver " + y + "---" + x);
     try {
       const url = `http://localhost:8002/putBlock`;
@@ -65,6 +68,7 @@ export default function Play() {
         handleDragStart={handleDragStart}
         getblock={getblock}
         setGetblock={setGetblock}
+        currentBlockRef={currentBlockRef}
       />
     </div>
   );

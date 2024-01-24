@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 export const RandomBlock = (props) => {
-  const { getblock: blocks, setGetblock } = props;
+  const { getblock: blocks, setGetblock, currentBlockRef } = props;
   // useEffect(() => {
   //   handleGetBlock();
   // }, [blocks]);
-  const handleDragStart = (e, index) => {
-    //alert(index);
-    //setGetblock(blocks.slice(blocks.indexOf(e.target.block, 1)));
-    // console.log(e.target);
-    //console.log("drag", blocks?.slice(0, 3));
+  const handleDragStart = (x, y) => {
+    console.log("hibrominn", x, y);
+    currentBlockRef.current = {
+      x: x,
+      y: y,
+    };
   };
   return (
     <div className="w-[520px] h-60 bg-black flex justify-around items-center">
       {blocks?.slice(0, 3).map((block, index) => (
-        <div draggable onDragStart={(e) => handleDragStart(e, index)}>
-          <RenderBlock blocks={block} />
+        <div draggable>
+          <RenderBlock blocks={block} handleDragStart={handleDragStart} />
         </div>
       ))}
       {/* <div className="w-36 h-36 bg-black"></div>
@@ -22,7 +23,7 @@ export const RandomBlock = (props) => {
     </div>
   );
 };
-const RenderBlock = ({ blocks: { block: blocks } }) => {
+const RenderBlock = ({ blocks: { block: blocks }, handleDragStart }) => {
   // console.log(blocks);
   return Array(3)
     .fill(0)
@@ -32,6 +33,8 @@ const RenderBlock = ({ blocks: { block: blocks } }) => {
           .fill(0)
           .map((_, x) => (
             <div
+              draggable
+              onDragStart={(e) => handleDragStart(x, y)}
               className={`${
                 isActiveBlock(x, y, blocks) ? "hidden" : "bg-white "
               } h-[40px] w-[40px] border `}
