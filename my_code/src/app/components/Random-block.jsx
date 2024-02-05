@@ -6,15 +6,12 @@ export const RandomBlock = (props) => {
     dragStart_x,
     dragStart_y,
     coordinatBlocks,
+    BlockId,
   } = props;
-  // useEffect(() => {
-  //   handleGetBlock();
-  // }, [blocks]);
-  const handleDragStart = (blocks) => {
-    // console.log("hi", blocks);
+  const handleDragStart = (blocks, id) => {
+    // console.log("hi", id, blocks);
     coordinatBlocks.current = blocks;
-
-    // console.log("blocks", blocks);
+    BlockId.current = id;
   };
   return (
     <div className="w-[520px] h-40 bg-black flex justify-around items-center">
@@ -24,6 +21,7 @@ export const RandomBlock = (props) => {
           handleDragStart={handleDragStart}
           dragStart_x={dragStart_x}
           dragStart_y={dragStart_y}
+          id={block.id}
         />
       ))}
       {/* <div className="w-36 h-36 bg-black"></div>
@@ -36,9 +34,10 @@ const RenderBlock = ({
   handleDragStart,
   dragStart_x,
   dragStart_y,
+  id,
 }) => {
   return (
-    <div draggable onDragStart={(e) => handleDragStart(blocks)}>
+    <div draggable onDragStart={(e) => handleDragStart(blocks, id)}>
       {Array(3)
         .fill(0)
         .map((_, y) => (
@@ -54,7 +53,7 @@ const RenderBlock = ({
                   }}
                   className={`${
                     isActiveBlock(x, y, blocks) ? "invisible" : "bg-white "
-                  } h-[40px] w-[40px] border `}
+                  } h-[35px] w-[35px] border `}
                 ></div>
               ))}
           </div>

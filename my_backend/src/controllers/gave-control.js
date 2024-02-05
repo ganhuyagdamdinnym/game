@@ -1,5 +1,4 @@
 import { gaveBlockModel } from "../models/gaveblock.js";
-//import { useState } from "react";
 export const getBlocks = async (req, res) => {
   const blockData = await gaveBlockModel.find();
   let currentIndex = blockData.length,
@@ -12,12 +11,14 @@ export const getBlocks = async (req, res) => {
       blockData[currentIndex],
     ];
   }
-  res.status(200).json(blockData);
-  console.log(blockData);
+  const blocks = blockData.slice(0, 3);
+  res.status(200).json(blocks);
+  // console.log(blockData);
 };
 export const etBlocks = async (req, res) => {
-  //const id = "65aa66cdfdcfc14500da7ebe";
   await gaveBlockModel.create({
+    id: 7,
+    properValue: true,
     block: [
       {
         x: 0,
@@ -28,17 +29,17 @@ export const etBlocks = async (req, res) => {
         y: 0,
       },
       {
-        x: 2,
-        y: 0,
+        x: 0,
+        y: 1,
       },
       {
         x: 1,
         y: 1,
       },
-      {
-        x: 1,
-        y: 2,
-      },
+      // {
+      //   x: 0,
+      //   y: 1,
+      // },
     ],
   });
   res.status(200).json("hi");
